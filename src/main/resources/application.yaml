@@ -1,0 +1,16 @@
+app:
+    dbpersist:
+        thread:
+            core-pool-size: 5
+            max-pool-size: 10
+            keep-alive-seconds: 2
+        queue-capacity: 10000
+
+spring:
+   data:
+      mongodb:
+        host: localhost
+        port: 27017
+        uri: mongodb://localhost/search_requests
+        username:
+        password:
