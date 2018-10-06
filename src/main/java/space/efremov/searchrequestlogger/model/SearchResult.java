@@ -1,22 +1,28 @@
 package space.efremov.searchrequestlogger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Document
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Setter
+@ToString(exclude = {"id"})
 public class SearchResult {
+
+    @Id
+    @JsonIgnore
+    private String id;
 
     @JsonProperty("search_engine")
     private String searchEngine;
 
-    private ArrayList<String> values;
+    @JsonProperty("values")
+    private List<String> values;
 
 }
