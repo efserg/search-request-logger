@@ -41,4 +41,9 @@ public class SearchRequestService {
     public void clear() {
         logRepository.deleteAll();
     }
+
+    @Async("dbPersistExecutor")
+    public void raisedException() {
+        throw new RuntimeException("Exception raised!");
+    }
 }

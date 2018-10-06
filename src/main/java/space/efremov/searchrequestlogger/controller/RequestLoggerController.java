@@ -35,6 +35,12 @@ public class RequestLoggerController {
         service.clear();
     }
 
+    @GetMapping("exception")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void ex() {
+        service.raisedException();
+    }
+
     @PostMapping("add")
     @ResponseStatus(value = HttpStatus.OK)
     public void add(@RequestBody SearchRequest request) {

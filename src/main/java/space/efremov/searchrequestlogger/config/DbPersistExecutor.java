@@ -1,13 +1,20 @@
 package space.efremov.searchrequestlogger.config;
 
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import java.util.concurrent.Executor;
+
 @Configuration
-public class DbPersistExecutor {
+@EnableAsync
+public class DbPersistExecutor implements AsyncConfigurer {
 
     @Value("${app.dbpersist.thread.core-pool-size}")
     private int corePoolSize;
@@ -31,5 +38,21 @@ public class DbPersistExecutor {
         threadPoolTaskExecutor.setKeepAliveSeconds(keepAliveSeconds);
 
         return threadPoolTaskExecutor;
+    }
+
+    @Override
+    public Executor getAsyncExecutor() {
+        return new SimpleAsyncTaskExecutor();
+    }
+
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return (ex, method, params) -> {
+            System.out.println("Exception message - " + ex.getMessage());
+            System.out.println("Method name - " + method.getName());
+            for (Object param : params) {
+                System.out.println("Parameter value - " + param);
+            }
+        };
     }
 }
