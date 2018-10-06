@@ -31,7 +31,14 @@ public class SearchRequestService {
         final Long endTimestamp = Optional.ofNullable(endDate).map(c -> c.toInstant().toEpochMilli()).orElse(ZonedDateTime.now().toInstant().toEpochMilli());
 
         return logRepository.findByEventTimestampBetween(startTimestamp, endTimestamp);
-
     }
 
+    @Transactional(readOnly = true)
+    public Long count() {
+        return logRepository.count();
+    }
+
+    public void clear() {
+        logRepository.deleteAll();
+    }
 }

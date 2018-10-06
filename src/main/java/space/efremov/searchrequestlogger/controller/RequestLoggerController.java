@@ -24,6 +24,17 @@ public class RequestLoggerController {
         return service.find(startDate, endDate);
     }
 
+    @GetMapping("count")
+    public Long count() {
+        return service.count();
+    }
+
+    @GetMapping("clear")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void clear() {
+        service.clear();
+    }
+
     @PostMapping("add")
     @ResponseStatus(value = HttpStatus.OK)
     public void add(@RequestBody SearchRequest request) {
