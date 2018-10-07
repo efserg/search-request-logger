@@ -1,5 +1,6 @@
 package space.efremov.searchrequestlogger.config;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,10 +11,12 @@ import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import java.util.Arrays;
 import java.util.concurrent.Executor;
 
 @Configuration
 @EnableAsync
+@Log4j2
 public class DbPersistExecutor implements AsyncConfigurer {
 
     @Value("${app.dbpersist.thread.core-pool-size}")
@@ -48,11 +51,8 @@ public class DbPersistExecutor implements AsyncConfigurer {
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return (ex, method, params) -> {
-            System.out.println("Exception message - " + ex.getMessage());
-            System.out.println("Method name - " + method.getName());
-            for (Object param : params) {
-                System.out.println("Parameter value - " + param);
-            }
+            log.error("Exception message: {}; Method name: {}; params: {}", ex.getMessage(), method.getName(), Arrays.toString(params));
+            ex.printStackTrace();
         };
     }
 }

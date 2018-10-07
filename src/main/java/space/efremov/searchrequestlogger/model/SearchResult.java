@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(exclude = {"id"})
-public class SearchResult {
+class SearchResult {
 
     @Id
     @JsonIgnore

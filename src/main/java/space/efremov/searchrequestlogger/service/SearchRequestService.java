@@ -3,6 +3,7 @@ package space.efremov.searchrequestlogger.service;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import space.efremov.searchrequestlogger.aspect.PerformanceTracing;
 import space.efremov.searchrequestlogger.model.SearchRequest;
 import space.efremov.searchrequestlogger.repository.RequestLogRepository;
 
@@ -21,6 +22,7 @@ public class SearchRequestService {
 
     @Async("dbPersistExecutor")
     @Transactional(readOnly = false)
+    @PerformanceTracing
     public void persist(SearchRequest request) {
         logRepository.save(request);
     }
