@@ -1,9 +1,13 @@
 app:
+    store:
+        implementation: concurrentQueue
     dbpersist:
-        thread:
-            core-pool-size: 5
-            max-pool-size: 10
-            keep-alive-seconds: 2
+        batch-size: 500
+        delay: 500
+    thread:
+        core-pool-size: 10
+        max-pool-size: 100
+        keep-alive-seconds: 5
         queue-capacity: 10000
 
 spring:
@@ -14,3 +18,7 @@ spring:
         uri: mongodb://localhost/search_requests
         username:
         password:
+
+server:
+    tomcat:
+        max-threads: 500

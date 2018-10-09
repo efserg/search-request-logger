@@ -1,9 +1,9 @@
 package space.efremov.searchrequestlogger.service;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import space.efremov.searchrequestlogger.aspect.PerformanceTracing;
 import space.efremov.searchrequestlogger.model.SearchRequest;
 import space.efremov.searchrequestlogger.repository.RequestLogRepository;
 
@@ -14,17 +14,19 @@ import java.util.Optional;
 @Service
 public class SearchRequestService {
 
+    private final SearchRequestStore store;
+
     private final RequestLogRepository logRepository;
 
-    public SearchRequestService(RequestLogRepository logRepository) {
+    public SearchRequestService(@Qualifier("concurrentQueue") SearchRequestStore store, RequestLogRepository logRepository) {
+        this.store = store;
         this.logRepository = logRepository;
     }
 
-    @Async("dbPersistExecutor")
-    @Transactional(readOnly = false)
-    @PerformanceTracing
-    public void persist(SearchRequest request) {
-        logRepository.save(request);
+    //    @PerformanceTracing
+    @Async("storePersistExecutor")
+    public void requestProcessing(SearchRequest request) {
+        store.put(request);
     }
 
     @Transactional(readOnly = true)
@@ -44,8 +46,7 @@ public class SearchRequestService {
         logRepository.deleteAll();
     }
 
-    @Async("dbPersistExecutor")
     public void raisedException() {
-        throw new RuntimeException("Exception raised!");
+        store.raisedException();
     }
 }

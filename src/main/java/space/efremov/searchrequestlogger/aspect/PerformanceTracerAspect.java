@@ -7,7 +7,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Random;
 
 @Aspect
@@ -23,7 +22,7 @@ public class PerformanceTracerAspect {
         final String id = randomId();
         final long start = System.currentTimeMillis();
 
-        log.warn("{} Start method \"{}\" with args: {}", id, joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
+        log.warn("{} Start method \"{}\" with args: {}", id, joinPoint.getSignature().getName()); //, Arrays.toString(joinPoint.getArgs()));
         final Object result = joinPoint.proceed();
         log.warn("{} End method \"{}\", duration {} ms", id, joinPoint.getSignature().getName(), System.currentTimeMillis() - start);
         return result;
