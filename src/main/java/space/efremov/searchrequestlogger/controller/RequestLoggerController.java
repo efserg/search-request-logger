@@ -1,12 +1,12 @@
 package space.efremov.searchrequestlogger.controller;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import space.efremov.searchrequestlogger.model.SearchRequest;
 import space.efremov.searchrequestlogger.service.SearchRequestService;
 
-import java.time.ZonedDateTime;
-import java.util.List;
+import java.time.LocalDate;
 
 @RestController("/")
 public class RequestLoggerController {
@@ -24,16 +24,9 @@ public class RequestLoggerController {
         service.requestProcessing(request);
     }
 
-    @GetMapping("find")
-    public List<SearchRequest> find(
-        @RequestParam(name = "startDate", required = false) ZonedDateTime startDate,
-        @RequestParam(name = "endDate", required = false) ZonedDateTime endDate) {
-        return service.find(startDate, endDate);
-    }
-
     @GetMapping("count")
-    public Long count() {
-        return service.count();
+    public Long count(@RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+        return service.count(date);
     }
 
     @GetMapping("clear")

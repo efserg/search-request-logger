@@ -7,8 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import space.efremov.searchrequestlogger.model.SearchRequest;
 import space.efremov.searchrequestlogger.repository.RequestLogRepository;
 
-import java.time.ZonedDateTime;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -30,16 +29,8 @@ public class SearchRequestService {
     }
 
     @Transactional(readOnly = true)
-    public List<SearchRequest> find(ZonedDateTime startDate, ZonedDateTime endDate) {
-        final Long startTimestamp = Optional.ofNullable(startDate).map(c -> c.toInstant().toEpochMilli()).orElse(0L);
-        final Long endTimestamp = Optional.ofNullable(endDate).map(c -> c.toInstant().toEpochMilli()).orElse(ZonedDateTime.now().toInstant().toEpochMilli());
-
-        return logRepository.findByEventTimestampBetween(startTimestamp, endTimestamp);
-    }
-
-    @Transactional(readOnly = true)
-    public Long count() {
-        return logRepository.count();
+    public Long count(LocalDate date) {
+        return Optional.ofNullable(date).map(logRepository::countByEventDate).orElse(logRepository.count());
     }
 
     public void clear() {
