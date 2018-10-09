@@ -2,7 +2,6 @@ package space.efremov.searchrequestlogger.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import space.efremov.searchrequestlogger.aspect.PerformanceTracing;
 import space.efremov.searchrequestlogger.model.SearchRequest;
 import space.efremov.searchrequestlogger.service.SearchRequestService;
 
@@ -18,11 +17,11 @@ public class RequestLoggerController {
         this.service = service;
     }
 
-    @PerformanceTracing
+    //    @PerformanceTracing
     @PostMapping("add")
     @ResponseStatus(value = HttpStatus.OK)
     public void add(@RequestBody SearchRequest request) {
-        service.persist(request);
+//        service.requestProcessing(request);
     }
 
     @GetMapping("find")

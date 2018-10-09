@@ -1,9 +1,11 @@
 app:
     dbpersist:
-        thread:
-            core-pool-size: 5
-            max-pool-size: 10
-            keep-alive-seconds: 2
+        batch-size: 500
+        delay: 500
+    thread:
+        core-pool-size: 5
+        max-pool-size: 10
+        keep-alive-seconds: 2
         queue-capacity: 10000
 
 spring:

@@ -19,16 +19,16 @@ import java.util.concurrent.Executor;
 @Log4j2
 public class DbPersistExecutor implements AsyncConfigurer {
 
-    @Value("${app.dbpersist.thread.core-pool-size}")
+    @Value("${app.thread.core-pool-size}")
     private int corePoolSize;
 
-    @Value("${app.dbpersist.thread.max-pool-size}")
+    @Value("${app.thread.max-pool-size}")
     private int maxPoolSize;
 
-    @Value("${app.dbpersist.thread.keep-alive-seconds}")
+    @Value("${app.thread.keep-alive-seconds}")
     private int keepAliveSeconds;
 
-    @Value("${app.dbpersist.queue-capacity}")
+    @Value("${app.thread.queue-capacity}")
     private int queueCapacity;
 
     @Bean
