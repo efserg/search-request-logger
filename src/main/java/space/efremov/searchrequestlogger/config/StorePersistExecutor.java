@@ -17,7 +17,7 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 @Log4j2
-public class DbPersistExecutor implements AsyncConfigurer {
+public class StorePersistExecutor implements AsyncConfigurer {
 
     @Value("${app.thread.core-pool-size}")
     private int corePoolSize;
@@ -32,7 +32,7 @@ public class DbPersistExecutor implements AsyncConfigurer {
     private int queueCapacity;
 
     @Bean
-    @Qualifier("dbPersistExecutor")
+    @Qualifier("storePersistExecutor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
         threadPoolTaskExecutor.setMaxPoolSize(maxPoolSize);

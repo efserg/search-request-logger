@@ -21,7 +21,7 @@ public class RequestLoggerController {
     @PostMapping("add")
     @ResponseStatus(value = HttpStatus.OK)
     public void add(@RequestBody SearchRequest request) {
-//        service.requestProcessing(request);
+        service.requestProcessing(request);
     }
 
     @GetMapping("find")
