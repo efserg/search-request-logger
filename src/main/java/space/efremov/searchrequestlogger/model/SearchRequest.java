@@ -1,16 +1,13 @@
 package space.efremov.searchrequestlogger.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
-@Document
+@Document(collection = "search_request")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Setter
@@ -18,27 +15,24 @@ import javax.validation.constraints.NotNull;
 public class SearchRequest {
 
     @Id
-    @JsonIgnore
     private String id;
 
-    @JsonProperty("event_timestamp")
-    @NotNull
-    private Long eventTimestamp;
+    @Field("event_date")
+    private LocalDate eventTimestamp;
 
-    @JsonProperty("uid")
-    @NotBlank
+    @Field("uid")
     private String uid;
 
-    @JsonProperty("search_text")
+    @Field("search_text")
     private String searchText;
 
-    @JsonProperty("long")
+    @Field("long")
     private Long longitude;
 
-    @JsonProperty("lat")
+    @Field("lat")
     private Long latitude;
 
-    @JsonProperty("search_result")
-    private SearchResult searchResult;
+    @Field("search_result")
+    private String searchResult;
 
 }
