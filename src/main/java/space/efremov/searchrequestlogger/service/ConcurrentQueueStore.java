@@ -1,6 +1,7 @@
 package space.efremov.searchrequestlogger.service;
 
 import org.springframework.stereotype.Service;
+import space.efremov.searchrequestlogger.aspect.PerformanceTracing;
 import space.efremov.searchrequestlogger.model.SearchRequest;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class ConcurrentQueueStore implements SearchRequestStore {
 
     private final Queue<SearchRequest> queue = new ConcurrentLinkedQueue<>();
 
-    //    @PerformanceTracing
+    @PerformanceTracing
     @Override
     public void put(SearchRequest element) {
         queue.add(element);

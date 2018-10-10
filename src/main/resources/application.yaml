@@ -1,4 +1,5 @@
 app:
+    performance-trace: false
     store:
         implementation: concurrentQueue
     dbpersist:
