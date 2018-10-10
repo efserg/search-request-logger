@@ -24,19 +24,21 @@ public class SearchRequest {
     private String id;
 
     @Field("event_date")
+    @NotNull
     private LocalDate eventDate;
 
     @Field("uid")
+    @NotBlank
     private String uid;
 
     @Field("search_text")
     private String searchText;
 
     @Field("long")
-    private Long longitude;
+    private Double longitude;
 
     @Field("lat")
-    private Long latitude;
+    private Double latitude;
 
     @Field("search_result")
     private SearchResult searchResult;
@@ -45,8 +47,8 @@ public class SearchRequest {
     public SearchRequest(@JsonProperty("event_timestamp") @NotNull Long eventTimestamp,
                          @JsonProperty("uid") @NotBlank String uid,
                          @JsonProperty("search_text") String searchText,
-                         @JsonProperty("long") Long longitude,
-                         @JsonProperty("lat") Long latitude,
+                         @JsonProperty("long") Double longitude,
+                         @JsonProperty("lat") Double latitude,
                          @JsonProperty("search_result") SearchResult searchResult) {
         this.eventDate = Instant.ofEpochSecond(eventTimestamp).atZone(ZoneId.systemDefault()).toLocalDate();
         this.uid = uid;
@@ -55,4 +57,5 @@ public class SearchRequest {
         this.latitude = latitude;
         this.searchResult = searchResult;
     }
+
 }

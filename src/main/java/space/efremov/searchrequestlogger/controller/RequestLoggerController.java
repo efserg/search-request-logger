@@ -1,5 +1,6 @@
 package space.efremov.searchrequestlogger.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ public class RequestLoggerController {
 
     private final SearchRequestService service;
 
-    public RequestLoggerController(SearchRequestService service) {
+    public RequestLoggerController(@Autowired SearchRequestService service) {
         this.service = service;
     }
 
@@ -21,7 +22,7 @@ public class RequestLoggerController {
     @PostMapping("add")
     @ResponseStatus(value = HttpStatus.OK)
     public void add(@RequestBody SearchRequest request) {
-        service.requestProcessing(request);
+        service.processingRequest(request);
     }
 
     @GetMapping("count")

@@ -1,18 +1,16 @@
 package space.efremov.searchrequestlogger.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Getter
 @Setter
-class SearchResult {
+public class SearchResult {
 
     @JsonProperty("search_engine")
     @Field("search_engine")

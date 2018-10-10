@@ -24,7 +24,7 @@ public class SearchRequestService {
 
     //    @PerformanceTracing
     @Async("storePersistExecutor")
-    public void requestProcessing(SearchRequest request) {
+    public void processingRequest(SearchRequest request) {
         store.put(request);
     }
 
