@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class SearchResult {
 
     @JsonProperty("search_engine")

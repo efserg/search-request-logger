@@ -16,19 +16,20 @@ public class ConcurrentQueueStore implements SearchRequestStore {
 
     private final Queue<SearchRequest> queue = new ConcurrentLinkedQueue<>();
 
-    @PerformanceTracing
     @Override
+    @PerformanceTracing
     public void put(SearchRequest element) {
         queue.add(element);
     }
 
     @Override
+    @PerformanceTracing
     public Optional<SearchRequest> get() {
         return Optional.ofNullable(queue.poll());
     }
 
     @Override
-//    @PerformanceTracing
+    @PerformanceTracing
     public Iterable<SearchRequest> get(int size) {
 
         List<SearchRequest> result = new ArrayList<>();

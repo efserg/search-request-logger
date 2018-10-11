@@ -18,6 +18,7 @@ import java.time.ZoneId;
 @Getter
 @Setter
 @ToString(exclude = {"id"})
+@EqualsAndHashCode
 public class SearchRequest {
 
     @Id

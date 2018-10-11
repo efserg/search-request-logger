@@ -114,7 +114,7 @@ public class RequestLoggerControllerTest {
     }
 
     @Test
-    public void whenUserSendAddRequestReturnOk() throws Exception {
+    public void whenUserSendAddRequestShouldReturnOk() throws Exception {
         mockMvc.perform(post("/add")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(request)))
@@ -129,6 +129,13 @@ public class RequestLoggerControllerTest {
                     fieldWithPath("search_result.search_engine").description("The engine of search").type(String.class),
                     fieldWithPath("search_result.values[]").description("The values of search").type(String.class))
             ));
+    }
+
+    @Test
+    public void whenUserSendClearRequestShouldReturnNoContent() throws Exception {
+        mockMvc.perform(get("/clear"))
+            .andExpect(status().isNoContent())
+            .andDo(documentationHandler.document());
     }
 
     private static class SearchRequestTest {

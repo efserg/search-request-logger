@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import space.efremov.searchrequestlogger.aspect.PerformanceTracing;
 import space.efremov.searchrequestlogger.model.SearchRequest;
 import space.efremov.searchrequestlogger.repository.RequestLogRepository;
 
@@ -22,7 +23,7 @@ public class SearchRequestService {
         this.logRepository = logRepository;
     }
 
-    //    @PerformanceTracing
+    @PerformanceTracing
     @Async("storePersistExecutor")
     public void processingRequest(SearchRequest request) {
         store.put(request);
