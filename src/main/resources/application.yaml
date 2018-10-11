@@ -1,11 +1,9 @@
 app:
-    performance-trace: false
-    store:
-        implementation: concurrentQueue
+    performance-trace: false # включить / выключить трассировку производительности методов помеченных @PerformanceTracing
     dbpersist:
-        batch-size: 500
-        delay: 500
-    thread:
+        batch-size: 500 # количество запросов, одновременно пишущихся в базу
+        delay: 500 # период срабатывания таймера для записи в базу (мс)
+    thread: # экспериментировал с разными значениями, сильного влияния на производительность не ощутил
         core-pool-size: 10
         max-pool-size: 100
         keep-alive-seconds: 5
@@ -13,7 +11,7 @@ app:
 
 spring:
    data:
-      mongodb:
+      mongodb: # настройки монги
         host: localhost
         port: 27017
         uri: mongodb://localhost/search_requests
